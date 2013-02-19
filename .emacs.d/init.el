@@ -25,6 +25,9 @@
 		    (set-frame-parameter nil 'alpha 80)
 		    ))
 
+;; スクリーンの最大化
+(set-frame-parameter nil 'fullscreen 'maximized)
+
 ;;ansi-term 色変更
 (setq term-default-bg-color nil)
 (setq term-default-fg-color nil)
@@ -93,3 +96,37 @@
 (require 'auto-complete)
 (require 'auto-complete-config)
 (global-auto-complete-mode t)
+
+;; タイトルバーにファイルのフルパス表示
+(setq frame-title-format
+      (format "%%f - Emacs@%s" (system-name)))
+
+;; 括弧の範囲内を強調表示
+(show-paren-mode t)
+(setq show-paren-delay 0)
+(setq show-paren-style 'expression)
+
+;; 括弧の範囲色
+(set-face-background 'show-paren-match-face "#500")
+
+;; 行番号表示
+(global-linum-mode t)
+(set-face-attribute 'linum nil
+                    :foreground "#800"
+                    :height 0.9)
+
+;; スクロールバー非表示
+(set-scroll-bar-mode nil)
+
+;; yes or noをy or n
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; C-Ret で矩形選択
+;; 詳しいキーバインド操作：http://dev.ariel-networks.com/articles/emacs/part5/
+(cua-mode t)
+(setq cua-enable-cua-keys nil)
+
+;;(ns-toggle-fullscreen)
+
+(set-frame-position (selected-frame) 0 0)
+(set-frame-size (selected-frame) 237 61)
