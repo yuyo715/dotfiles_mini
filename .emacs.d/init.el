@@ -26,7 +26,7 @@
 		    ))
 
 ;; スクリーンの最大化
-(set-frame-parameter nil 'fullscreen 'maximized)
+;;(set-frame-parameter nil 'fullscreen 'maximized)
 
 ;;ansi-term 色変更
 (setq term-default-bg-color nil)
@@ -129,4 +129,18 @@
 ;;(ns-toggle-fullscreen)
 
 (set-frame-position (selected-frame) 0 0)
-(set-frame-size (selected-frame) 237 61)
+(set-frame-size (selected-frame) 236 60)
+
+
+;;matlab mode
+(autoload 'matlab-mode "matlab" "Enter MATLAB mode." t)
+(autoload 'matlab-shell "matlab" "Interactive MATLAB mode." t)
+(setq auto-mode-alist (cons '("\\.m\\'" . matlab-mode) auto-mode-alist))
+
+
+;;gnuplot mode
+(require 'gnuplot)
+(setq gnuplot-program "/usr/local/bin/gnuplot")
+;; automatically open files ending with .gp or .gnuplot in gnuplot mode
+(setq auto-mode-alist 
+(append '(("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode)) auto-mode-alist))
