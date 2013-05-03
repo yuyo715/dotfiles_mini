@@ -10,7 +10,7 @@
 (auto-install-compatibility-setup)             ; 互換性確保
 
 ;;言語を日本語にするよ
-(set-language-environment'Japanese)
+(set-language-environment "Japanese")
 
 ;;改行コードを表示
 (setq eol-mnemonic-dos "(CRLF)")
@@ -42,7 +42,8 @@
 
 
 ;; backspace C-h 2012/5/29
-(global-set-key "\C-h" 'delete-backward-char)
+(keyboard-translate ?\C-h ?\C-?)
+;(global-set-key "\C-h" 'delete-backward-char)
 
 ;;ビープ音消す 2012/11/12
 (setq visible-bell t)
@@ -58,7 +59,9 @@
 (set-keyboard-coding-system 'utf-8)
 (set-buffer-file-coding-system 'utf-8)
 (setq default-buffer-file-coding-system 'utf-8)
-
+(prefer-coding-system 'utf-8)
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
 ;; anything 2012/11/21
 (require 'anything-startup)
 (define-key global-map (kbd "C-l") 'anything)
@@ -144,3 +147,13 @@
 ;; automatically open files ending with .gp or .gnuplot in gnuplot mode
 (setq auto-mode-alist 
 (append '(("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode)) auto-mode-alist))
+
+;; back up directory
+(setq make-backup-files t)
+(setq backup-directory-alist
+  (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backup"))
+    backup-directory-alist))
+
+;; anything 内でC-h
+(eval-after-load "anything"
+  '(define-key anything-map (kbd "C-h") 'delete-backward-char))
